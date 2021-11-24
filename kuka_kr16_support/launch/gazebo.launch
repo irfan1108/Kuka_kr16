@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<launch>
+
+<arg name="paused" default="true" doc="Starts gazebo in paused mode"/>
+<arg name="gui" default="true" doc="Starts gazebo gui"/>
+
+ 
+
+    <!-- startup simulated world -->
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+        <arg name="world_name" default="worlds/empty.world"/>
+        <arg name="paused" value="$(arg paused)"/>
+        <arg name="gui" value="$(arg gui)"/>
+  </include>
+
+
+  <!-- Spawn our robot using urdf_spawner node -->
+  <node name="spawn_urdf"
+        pkg="gazebo_ros"
+        type="spawn_model"
+        args = "-file $(find kuka_kr16_support)/urdf/kr16.urdf -urdf -model kuka16 -x 0 -y 0 -z 0.1"/>
+        
+
+</launch>
